@@ -1,6 +1,7 @@
 package me.cassayre.florian.pxlartgenerator;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
 import java.util.Set;
@@ -9,6 +10,21 @@ public final class Utils
 {
     private Utils()
     {
+    }
+
+
+    public static BufferedImage resize(BufferedImage source, int width, int height)
+    {
+        final BufferedImage out = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+
+        final Graphics2D g = out.createGraphics();
+
+        final AffineTransform at = AffineTransform.getScaleInstance((double) width / source.getWidth(), (double) height / source.getHeight());
+        g.drawRenderedImage(source, at);
+
+        g.dispose();
+
+        return out;
     }
 
     public static BufferedImage enlarge(BufferedImage source, int pixelSize)

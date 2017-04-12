@@ -3,7 +3,6 @@ package me.cassayre.florian.pxlartgenerator;
 import com.beust.jcommander.Parameter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Args
@@ -20,8 +19,14 @@ public class Args
     @Parameter(names = "-output-size", description = "The size of the pixels on the output image")
     private int outputSize = 1;
 
-    @Parameter(names = {"-color", "-c"}, description = "The colors to be used for the output image")
-    private List<Integer> colors = new ArrayList<>();
+    @Parameter(names = {"-palette", "-p"}, description = "The palette to be used to draw the output image; it must be in hexadecimal")
+    private String palette = "";
+
+    @Parameter(names = {"-width", "-w"}, description = "The output image width")
+    private Integer width = null;
+
+    @Parameter(names = {"-height", "-h"}, description = "The output image height")
+    private Integer height = null;
 
     public List<String> parameters()
     {
@@ -43,8 +48,18 @@ public class Args
         return outputSize;
     }
 
-    public List<Integer> colors()
+    public String palette()
     {
-        return colors;
+        return palette;
+    }
+
+    public Integer width()
+    {
+        return width;
+    }
+
+    public Integer height()
+    {
+        return height;
     }
 }
