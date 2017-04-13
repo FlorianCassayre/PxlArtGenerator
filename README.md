@@ -10,7 +10,7 @@ Java **1.7+** is required to run the program.
 
 ## Download ##
 
-A compiled version can be downloaded in the [releases](#) section.
+A compiled version can be downloaded in the [releases](https://github.com/FlorianCassayre/PxlArtGenerator/releases) section.
 
 ## Usage ##
 
