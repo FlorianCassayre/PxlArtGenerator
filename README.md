@@ -2,6 +2,8 @@
 
 A light tool to convert images to pixel arts using the 16-colors palette available on [pxls.space](http://pxls.space).
 
+![Mona Lisa](https://i.cassayre.me/20170413134346)
+
 ## Requirements ##
 
 Java **1.7+** is required to run the program.
