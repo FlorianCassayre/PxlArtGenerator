@@ -10,17 +10,14 @@ public class Args
     @Parameter
     private List<String> parameters = new ArrayList<>();
 
-    @Parameter(names = {"-source", "-src"}, description = "The source image location")
-    private String sourceImage = null;
-
-    @Parameter(names = {"-output", "-out"}, description = "The output image location")
-    private String outputImage = null;
+    @Parameter(names = "--help", help = true, description = "Displays this menu")
+    private boolean help;
 
     @Parameter(names = "-output-size", description = "The size of the pixels on the output image")
     private int outputSize = 1;
 
     @Parameter(names = {"-palette", "-p"}, description = "The palette to be used to draw the output image; it must be in hexadecimal")
-    private String palette = "";
+    private String palette = "0123456789abcdef";
 
     @Parameter(names = {"-width", "-w"}, description = "The output image width")
     private Integer width = null;
@@ -28,19 +25,14 @@ public class Args
     @Parameter(names = {"-height", "-h"}, description = "The output image height")
     private Integer height = null;
 
+    public boolean help()
+    {
+        return help;
+    }
+
     public List<String> parameters()
     {
         return parameters;
-    }
-
-    public String sourceImage()
-    {
-        return sourceImage;
-    }
-
-    public String outputImage()
-    {
-        return outputImage;
     }
 
     public int outputSize()

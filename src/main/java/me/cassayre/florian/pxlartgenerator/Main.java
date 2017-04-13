@@ -15,30 +15,42 @@ public class Main
 {
     public static void main(String[] args)
     {
-        // args = "-src françois-hollande.png -out pxls.png -p 0123 -w 50 -h 74".split(" ");
+        // args = "françois-hollande.png pxls.png -p 0123 -w 50 -h 74".split(" ");
+        // args = "--help".split(" ");
 
         final Args parameters = new Args();
 
         final JCommander commander = new JCommander();
+
+        commander.setProgramName("java -jar PxlArtGenerator.jar <source image> <output image>");
+
         commander.addObject(parameters);
 
         try
         {
             commander.parse(args);
+
+            if(parameters.help())
+            {
+                commander.usage();
+                return;
+            }
+
             checkArguments(parameters);
         }
         catch(ParameterException e)
         {
             System.out.println("Error: " + e.getMessage());
+            System.out.println("Use --help to list the options.");
             return;
         }
 
-
+        final String sourcePath = parameters.parameters().get(0), outputPath = parameters.parameters().get(1);
 
         final BufferedImage source;
         try
         {
-            source = ImageIO.read(new File(parameters.sourceImage()));
+            source = ImageIO.read(new File(sourcePath));
         }
         catch(IOException e)
         {
@@ -99,8 +111,8 @@ public class Main
 
         try
         {
-            ImageIO.write(rendered, "png", new File(parameters.outputImage()));
-            System.out.println("Created image '" + parameters.outputImage() + "'.");
+            ImageIO.write(rendered, "png", new File(outputPath));
+            System.out.println("Created image '" + outputPath + "'.");
         }
         catch(IOException e)
         {
@@ -111,10 +123,9 @@ public class Main
 
     private static void checkArguments(Args args)
     {
-        checkCondition(args.sourceImage() != null, "No source image was provided.");
-        checkCondition(args.outputImage() != null, "No output path was provided.");
+        checkCondition(args.parameters().size() <= 2, "Mendatory parameter(s) missing.");
         checkCondition(args.outputSize() > 0, "Output size must be strictly positive.");
-        checkCondition(args.palette().matches("[0-9a-fA-F]*"), "The palette must be in hexademical.");
+        checkCondition(args.palette().matches("[0-9a-fA-F]+"), "The palette must be in hexademical.");
         checkCondition(args.width() == null || args.width() > 0, "The width must be strictly positive.");
         checkCondition(args.height() == null || args.height() > 0, "The height must be strictly positive.");
     }
